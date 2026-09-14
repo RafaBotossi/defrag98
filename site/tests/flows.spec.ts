@@ -6,7 +6,7 @@ test("complete optimization, pause, restart and loop", async ({ page }) => {
   await page.getByRole("button", { name: "Original", exact: true }).click();
   await expect(page.getByRole("heading")).toContainText("breathing room");
   await page.getByLabel("Auto loop").uncheck();
-  await page.getByRole("button", { name: "Start Defrag" }).click();
+  await expect.poll(async () => Number(await page.getByRole("progressbar").getAttribute("aria-valuenow"))).toBeGreaterThan(0);
   await expect(
     page.getByRole("button", { name: "Pause", exact: false }),
   ).toBeEnabled();
@@ -63,7 +63,8 @@ test("small viewport, keyboard, reduced motion and fullscreen", async ({
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.getByRole("button", { name: "Start Defrag" }).focus();
+  await page.getByRole("button", { name: "Pause", exact: false }).click();
+  await page.getByRole("button", { name: "Resume" }).focus();
   await page.keyboard.press("Enter");
   await expect(
     page.getByRole("button", { name: "Pause", exact: false }),

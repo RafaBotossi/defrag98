@@ -11,7 +11,7 @@ npm --prefix site ci
 npm run dev
 ```
 
-Abra a URL exibida pelo Vite. Clique em **Start Defrag** para iniciar os movimentos e habilitar áudio. Pause congela o processo; Restart gera outro disco (continua rodando se já estava em execução). Volume inicial: 18%. Auto loop aguarda quatro segundos após 100% antes de gerar outro disco.
+Abra a URL exibida pelo Vite. A simulação inicia automaticamente ao abrir. O áudio é habilitado na primeira interação (clique, toque ou teclado), respeitando a política do navegador. Pause congela o processo; Restart gera outro disco (continua rodando se já estava em execução). Volume inicial: 18%. Auto loop aguarda quatro segundos após 100% antes de gerar outro disco.
 
 ## Implementado
 
