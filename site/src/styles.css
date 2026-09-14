@@ -672,3 +672,17 @@ p {
 }
 
 @media(max-width:750px) { .theme-win98 .progress-heading { align-self:stretch; gap:12px; } }
+
+.start-prompt { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; pointer-events:none; background:#08152622; }
+.desktop .monitor .start-hero { pointer-events:auto; min-width:240px; padding:22px 40px; font:bold 30px Tahoma,Arial,sans-serif; letter-spacing:4px; color:#fff; background:#000080; border:3px solid; border-color:#fff #242439 #242439 #fff; box-shadow:0 0 0 6px #c0c0c0,0 10px 35px #0009; border-radius:0; }
+.desktop .monitor .start-hero:hover { background:#1515ba; color:#fff; transform:translateY(-2px); }
+.desktop .monitor .start-hero:focus-visible { outline:4px solid #ffe854; outline-offset:8px; }
+.start-hero span { margin-right:12px; }
+.start-hint { padding:8px 14px; background:#000080; color:white; font:14px Tahoma,Arial,sans-serif; box-shadow:0 2px 8px #0004; }
+.theme-original .monitor .start-hero { background:#256957; }
+.theme-original .start-hint { background:#174e40; }
+.theme-future .monitor .start-hero { background:#00e5ff; color:#041723; border-color:#a6f7ff #136c7f #136c7f #a6f7ff; box-shadow:0 0 0 5px #10253b,0 0 50px #00e5ff70; }
+.theme-future .start-hint { background:#10253b; color:#b9f5ff; }
+.theme-rainbow .monitor .start-hero { background:linear-gradient(110deg,#7d2588,#343494); border-color:#ffcafa #5c307a #5c307a #ffcafa; box-shadow:0 0 0 5px #e6b5ed,0 8px 35px #0008; }
+.theme-rainbow .start-hint { background:#432453; }
+@media(max-width:750px) { .desktop .monitor .start-hero { min-width:190px; padding:18px 28px; font-size:26px; } .start-hint { font-size:12px; padding:8px; } }

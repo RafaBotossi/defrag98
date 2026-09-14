@@ -23,7 +23,7 @@ export default function App() {
   });
   const seed = useRef(98),
     completeSince = useRef(0);
-  const [status, setStatus] = useState("running"),
+  const [status, setStatus] = useState("ready"),
     [progress, setProgress] = useState(0),
     [moves, setMoves] = useState(0);
   const [count] = useState(() => (innerWidth < 600 ? 1024 : 4096)),
@@ -96,14 +96,6 @@ export default function App() {
     simulation.current = sim;
     audio.current = new AudioEngine();
     connect(sim);
-    sim.start();
-    const unlockAudio = () => {
-      void audio.current?.unlock().catch(() => setNotice('Audio unavailable. You can still enjoy the simulation.'));
-      document.removeEventListener('pointerdown', unlockAudio);
-      document.removeEventListener('keydown', unlockAudio);
-    };
-    document.addEventListener('pointerdown', unlockAudio);
-    document.addEventListener('keydown', unlockAudio);
     const renderer = createRenderer(canvas.current!);
     rendererRef.current = renderer;
     let frame = 0,
@@ -149,8 +141,6 @@ export default function App() {
     document.addEventListener("fullscreenchange", onFullscreen);
     return () => {
       unregister();
-      document.removeEventListener('pointerdown', unlockAudio);
-      document.removeEventListener('keydown', unlockAudio);
       cancelAnimationFrame(frame);
       renderer.dispose();
       audio.current?.dispose();
@@ -252,6 +242,10 @@ export default function App() {
               role="img"
               aria-label="Virtual disk map. Colored clusters reorganize as optimization progresses."
             />
+            {status === 'ready' && <div className="start-prompt">
+              <button className="start-hero" onClick={start} aria-label="START"><span aria-hidden="true">▶</span> START</button>
+              <span className="start-hint">Click to start defragmenting · Sound on</span>
+            </div>}
             <div className="monitor-foot">
               <span>
                 ▸{" "}

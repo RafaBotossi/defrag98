@@ -6,7 +6,7 @@ test('ultrawide themes preserve the disk and repaint while paused', async ({page
   await page.getByRole('button',{name:'Original',exact:true}).click();
   const windowBox = await page.locator('.window').boundingBox();
   expect(windowBox!.width / 3440).toBeGreaterThan(.97);
-  await page.waitForTimeout(300);
+  await page.getByRole('button',{name:'START',exact:true}).click(); await page.waitForTimeout(300);
   await page.getByRole('button',{name:'Pause',exact:false}).click(); await page.waitForTimeout(150);
   const before = await page.getByRole('progressbar').getAttribute('aria-valuenow');
   const snapshots = new Set<string>();
@@ -37,6 +37,6 @@ test('all styles work on mobile and classic details controls work', async ({page
   await page.getByRole('button',{name:'Exit Relax Mode',exact:true}).last().click();
   await page.getByRole('button',{name:'Show Details',exact:true}).click(); await expect(page.locator('canvas')).toBeVisible();
   await page.getByRole('button',{name:'Legend',exact:true}).click(); await expect(page.getByLabel('Cluster legend')).toBeHidden();
-  await expect(page.getByRole('button',{name:'Stop',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'START',exact:true}).click(); await expect(page.getByRole('button',{name:'Stop',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Stop',exact:true}).click(); await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow','0');
 });
