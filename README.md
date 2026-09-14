@@ -49,7 +49,7 @@ A estrutura inicial do Sites foi adaptada para uma SPA estática Vite: o projeto
 
 ## Publicação e Git
 
-`main` é a branch principal de [RafaBotossi/defrag98](https://github.com/RafaBotossi/defrag98). O workflow de CI executa testes, build e Playwright em pushes e pull requests.
+`main` é a branch principal de [RafaBotossi/defrag98](https://github.com/RafaBotossi/defrag98). O workflow de CI executa testes, build e Playwright em pushes e pull requests. Após validar um push na `main`, publica automaticamente `dist/` no [GitHub Pages](https://rafabotossi.github.io/defrag98/). Nas configurações do Pages, a origem é **GitHub Actions**.
 
 Cloudflare Pages: diretório raiz do repositório; comando `npm --prefix site ci && npm run build`; saída `dist`. Os headers de segurança e cache estão em `site/public/_headers`. Vercel: mesmas configurações de build/saída. GitHub Pages: publique o conteúdo de `dist`; os assets usam caminhos relativos para suportar `/defrag98/`.
 
