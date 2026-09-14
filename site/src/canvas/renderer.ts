@@ -1,5 +1,9 @@
 import type { Simulation } from "./simulation";
 import { palettes, type Theme } from '../themes';
+// The classic cells are narrow upright rectangles, roughly 3:4, in every theme.
+const CELL_ASPECT = 0.75;
+const gridColumns = (count: number, width: number, height: number) =>
+  Math.max(16, Math.round(Math.sqrt(count * width / (Math.max(height, 1) * CELL_ASPECT))));
 export function createRenderer(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d", { alpha: false });
   if (!ctx) throw new Error("Canvas 2D is unavailable");
@@ -29,7 +33,7 @@ export function createRenderer(canvas: HTMLCanvasElement) {
   observer.observe(canvas);
   resize();
   const renderer = {
-    get columns() { return Math.max(16, Math.round(Math.sqrt((previous?.disk.length ?? 4096) * width / Math.max(height, 1)))); },
+    get columns() { return gridColumns(previous?.disk.length ?? 4096, width, height); },
     draw(sim: Simulation, reduced: boolean, theme: Theme = 'original') {
       if (
         !dirty &&
@@ -48,7 +52,7 @@ export function createRenderer(canvas: HTMLCanvasElement) {
       previousPhase = sim.phase;
       previousTheme = theme;
       const palette = palettes[theme];
-      const columns = Math.max(16, Math.round(Math.sqrt(sim.disk.length * width / Math.max(height, 1)))),
+      const columns = gridColumns(sim.disk.length, width, height),
         rows = Math.ceil(sim.disk.length / columns);
       const cw = width / columns,
         ch = height / rows;

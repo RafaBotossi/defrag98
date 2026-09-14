@@ -6,8 +6,8 @@ export const themes: { id: Theme; label: string; description: string }[] = [
   { id: 'rainbow', label: 'Rainbow', description: 'Every bit of the spectrum' },
 ];
 export function loadTheme(): Theme {
-  try { const saved = localStorage.getItem('defrag98-theme'); return themes.some(theme => theme.id === saved) ? saved as Theme : 'original'; }
-  catch { return 'original'; }
+  try { const saved = localStorage.getItem('defrag98-theme'); return themes.some(theme => theme.id === saved) ? saved as Theme : 'win98'; }
+  catch { return 'win98'; }
 }
 export const palettes = {
   original: { background: '#101d29', used: ['#42afb4','#368aab','#708fcd','#63bba0'], free:'#203342', system:'#aa91c5', locked:'#b3a77c', moving:'#fff4d1', target:'#f8d779', recent:'#b7ebbc' },

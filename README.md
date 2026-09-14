@@ -26,6 +26,8 @@ Abra a URL exibida pelo Vite. Clique em **Start Defrag** para iniciar os movimen
 
 A interface aproveita a largura da tela, inclusive ultrawide, e oferece quatro visualizações: **Original**, **Windows 98**, **Futuristic** e **Rainbow**. A troca altera janela, controles, legenda e Canvas sem reiniciar o disco. A preferência fica salva neste navegador. O tema Windows 98 recria a aparência clássica com blocos ciano, fundo branco e controles Stop/Pause/Legend/Hide Details; mantém os recursos da simulação web, sem ser uma cópia pixel a pixel do executável original.
 
+Windows 98 é o tema padrão quando não há uma preferência salva. Todos os temas usam clusters retangulares verticais, aproximadamente 3:4, como na referência clássica, com colunas adaptadas ao tamanho da tela.
+
 Screensaver automático e Easter eggs permanecem fora do escopo atual.
 
 ## Validar

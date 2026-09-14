@@ -3,6 +3,7 @@ test("complete optimization, pause, restart and loop", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
+  await page.getByRole("button", { name: "Original", exact: true }).click();
   await expect(page.getByRole("heading")).toContainText("breathing room");
   await page.getByLabel("Auto loop").uncheck();
   await page.getByRole("button", { name: "Start Defrag" }).click();
@@ -55,6 +56,7 @@ test("small viewport, keyboard, reduced motion and fullscreen", async ({
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  await page.getByRole("button", { name: "Original", exact: true }).click();
   await expect(page.getByLabel("Less motion")).toBeChecked();
   expect(
     await page.evaluate(

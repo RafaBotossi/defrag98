@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 test('ultrawide themes preserve the disk and repaint while paused', async ({page}) => {
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({width:3440,height:1440}); await page.goto('/');
+  await expect(page.locator('main')).toHaveClass(/theme-win98/);
+  await page.getByRole('button',{name:'Original',exact:true}).click();
   const windowBox = await page.locator('.window').boundingBox();
   expect(windowBox!.width / 3440).toBeGreaterThan(.97);
   await page.getByRole('button',{name:'Start Defrag'}).click(); await page.waitForTimeout(300);
