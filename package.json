@@ -1,0 +1,11 @@
+{
+    "name":  "defrag98",
+    "private":  true,
+    "scripts":  {
+                    "dev":  "npm --prefix site run dev",
+                    "build":  "node scripts/build.mjs",
+                    "test":  "npm --prefix site test",
+                    "test:e2e":  "npm --prefix site run test:e2e",
+                    "preview":  "npm --prefix site run preview"
+                }
+}
