@@ -4,12 +4,18 @@ import { createSimulation, type Simulation } from "./canvas/simulation";
 import { createRenderer } from "./canvas/renderer";
 import { AudioEngine } from "./audio/audioEngine";
 import { registerSimulationTools } from "./webmcp";
+import { loadTheme, palettes, themes, type Theme } from './themes';
 
 export default function App() {
+  const [theme, setTheme] = useState<Theme>(loadTheme);
+  const themeRef = useRef(theme);
+  const [showLegend, setShowLegend] = useState(true);
+  const [showDetails, setShowDetails] = useState(true);
   const canvas = useRef<HTMLCanvasElement>(null),
     shell = useRef<HTMLElement>(null);
   const simulation = useRef<Simulation | null>(null),
     audio = useRef<AudioEngine | null>(null);
+  const rendererRef = useRef<ReturnType<typeof createRenderer> | null>(null);
   const settings = useRef({
     loop: true,
     reduced: matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -35,8 +41,8 @@ export default function App() {
   const connect = (sim: Simulation) =>
     sim.subscribeToMove((move) =>
       audio.current?.play(
-        (move.to % (sim.disk.length === 1024 ? 32 : 64)) /
-          (sim.disk.length === 1024 ? 32 : 64),
+        (move.to % (rendererRef.current?.columns ?? 64)) /
+          (rendererRef.current?.columns ?? 64),
         sim.groups[move.cluster],
       ),
     );
@@ -91,6 +97,7 @@ export default function App() {
     audio.current = new AudioEngine();
     connect(sim);
     const renderer = createRenderer(canvas.current!);
+    rendererRef.current = renderer;
     let frame = 0,
       last = 0,
       lastUi = 0,
@@ -100,7 +107,7 @@ export default function App() {
       if (!document.hidden) current.advance(last ? now - last : 0);
       last = now;
       if (now - lastDraw >= (settings.current.reduced ? 125 : 0)) {
-        renderer.draw(current, settings.current.reduced);
+        renderer.draw(current, settings.current.reduced, themeRef.current);
         lastDraw = now;
       }
       if (now - lastUi > 100) {
@@ -150,7 +157,16 @@ export default function App() {
           ? "Taking a little breather."
           : "A little order, a little peace.";
   return (
-    <main ref={shell} className={`desktop ${relax ? "relax" : ""}`}>
+    <main ref={shell} className={`desktop theme-${theme} ${relax ? "relax" : ""}`}>
+      <div className="appearance-bar">
+        <span className="appearance-label">DEFRAG98 <span>/ VISUALIZER</span></span>
+        <div className="theme-picker" role="group" aria-label="Visualization style">
+          {themes.map(option => <button key={option.id} className={`theme-option option-${option.id}`} aria-pressed={theme === option.id} title={option.description} onClick={() => {
+            setTheme(option.id); themeRef.current = option.id;
+            try { localStorage.setItem('defrag98-theme', option.id); } catch { /* Themes work without storage. */ }
+          }}><i aria-hidden="true"/>{option.label}</button>)}
+        </div>
+      </div>
       <div className="desktop-heading">
         <span className="brand-mark">▦</span>
         <div>
@@ -161,7 +177,7 @@ export default function App() {
       </div>
       <section className="window" aria-label="Defrag98 virtual disk optimizer">
         <header className="titlebar">
-          <span>▦ &nbsp; Defrag98 — Virtual Disk Optimizer</span>
+          <span>▦ &nbsp; {theme === 'win98' ? 'Defragmenting Drive C' : theme === 'future' ? 'DEFRAG98 / NEURAL STORAGE ARRAY' : theme === 'rainbow' ? 'Defrag98 — Somewhere over the data' : 'Defrag98 — Virtual Disk Optimizer'}</span>
           <div>
             <button
               onClick={() => setRelax(!relax)}
@@ -182,8 +198,8 @@ export default function App() {
             Disk <b>01</b>
           </span>
           <div>
-            <button aria-pressed={crt} onClick={() => setCrt(!crt)}>
-              CRT {crt ? "on" : "off"}
+            <button aria-pressed={crt && theme !== 'win98'} disabled={theme === 'win98'} onClick={() => setCrt(!crt)}>
+              CRT {crt && theme !== 'win98' ? "on" : "off"}
             </button>
             <button aria-pressed={relax} onClick={() => setRelax(!relax)}>
               {relax ? "Exit Relax Mode" : "Relax Mode"}
@@ -216,10 +232,10 @@ export default function App() {
                   : "STANDBY"}
             </span>
           </div>
-          <div className={`monitor ${crt && !reduced ? "crt" : ""}`}>
+          <div className={`monitor ${crt && !reduced && theme !== 'win98' ? "crt" : ""}`} hidden={theme === 'win98' && !showDetails && !relax}>
             <div className="monitor-label">
               <span>CLUSTER MAP</span>
-              <span>{count === 1024 ? "32 × 32" : "64 × 64"} / LIVE VIEW</span>
+              <span>{count.toLocaleString('en-US')} CLUSTERS / LIVE VIEW</span>
             </div>
             <canvas
               ref={canvas}
@@ -238,7 +254,7 @@ export default function App() {
               <span>NO REAL DISKS ACCESSED</span>
             </div>
           </div>
-          <div className="legend" aria-label="Cluster legend">
+          <div className="legend" aria-label="Cluster legend" hidden={theme === 'win98' && !showLegend}>
             {[
               ["used", "Used"],
               ["free", "Free"],
@@ -249,7 +265,7 @@ export default function App() {
               ["recent", "Organized"],
             ].map(([key, label]) => (
               <span key={key}>
-                <i className={key} />
+                <i className={key} style={{background: key === 'used' ? palettes[theme].used[0] : palettes[theme][key as 'free' | 'system' | 'locked' | 'moving' | 'target' | 'recent']}} />
                 {label}
               </span>
             ))}
@@ -279,6 +295,12 @@ export default function App() {
                 : "Small moves. Satisfying progress."}
             </span>
           </div>
+          {theme === 'win98' && <div className="classic-actions">
+            <button onClick={status === 'running' ? () => { simulation.current?.reset(); setStatus('ready'); setProgress(0); setMoves(0); completeSince.current = 0; } : start}>{status === 'running' ? 'Stop' : status === 'paused' ? 'Resume' : 'Start'}</button>
+            <button onClick={pause} disabled={status !== 'running'}>Pause</button>
+            <button aria-pressed={showLegend} onClick={() => setShowLegend(!showLegend)}>Legend</button>
+            <button aria-expanded={showDetails} onClick={() => setShowDetails(!showDetails)}>{showDetails ? 'Hide Details' : 'Show Details'}</button>
+          </div>}
           <div className="controls">
             <div className="transport">
               <button

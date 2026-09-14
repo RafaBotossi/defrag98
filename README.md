@@ -24,7 +24,9 @@ Abra a URL exibida pelo Vite. Clique em **Start Defrag** para iniciar os movimen
 - Teclado nativo, labels acessíveis, redução de movimento do sistema e controle manual.
 - Canvas independente de React, pausa de avanço em aba oculta, renderização ociosa evitada e suporte a resize/DPR.
 
-Temas DOS/neon/synthwave, screensaver automático e Easter eggs permanecem fora do MVP, conforme a especificação.
+A interface aproveita a largura da tela, inclusive ultrawide, e oferece quatro visualizações: **Original**, **Windows 98**, **Futuristic** e **Rainbow**. A troca altera janela, controles, legenda e Canvas sem reiniciar o disco. A preferência fica salva neste navegador. O tema Windows 98 recria a aparência clássica com blocos ciano, fundo branco e controles Stop/Pause/Legend/Hide Details; mantém os recursos da simulação web, sem ser uma cópia pixel a pixel do executável original.
+
+Screensaver automático e Easter eggs permanecem fora do escopo atual.
 
 ## Validar
 

@@ -7,6 +7,7 @@ Validação realizada em 13/09/2026, Windows, Node 24, Chromium automatizado.
 - Revisor independente executou 84 combinações de seed/tamanho sem falhas de integridade ou término.
 - 2 fluxos Playwright aprovados: Start/Pause/Resume/Restart, 100%, loop, velocidade, mute, volume, Relax Mode, fullscreen, teclado e reduced motion.
 - Desktop 1280 px e celular 390 px inspecionados visualmente por implementação e QA independente; sem BLOCKER/HIGH.
+- Expansão visual: quatro temas verificados em 3440×1440 e 390×844, troca em pausa preserva progresso e redesenha o Canvas; preferência persiste ao recarregar. A janela usa mais de 97% da largura ultrawide. Controles clássicos de detalhes/legenda, Stop e entrada em Relax com detalhes ocultos cobertos por testes.
 - Resize ao sair de fullscreen corrigido para redesenhar imediatamente, inclusive em reduced motion.
 - Nenhum erro JavaScript capturado no fluxo principal.
 - Amostra local de 180 frames: mediana e percentil 95 de 16,7 ms (~60 FPS). Reproduzir com o servidor aberto e `node site/scripts/profile.mjs`.

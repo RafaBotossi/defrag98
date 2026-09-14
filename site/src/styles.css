@@ -557,3 +557,118 @@ p {
     transition: none !important;
   }
 }
+
+/* Wide workspace: the disk gets the space, with a small fixed outer gutter. */
+.desktop { padding: 14px 18px; }
+.desktop-heading, .desktop-footer { display: none; }
+.appearance-bar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 2px 12px; color:#d5e8dc; }
+.appearance-label { font: bold 15px monospace; letter-spacing:2px; }
+.appearance-label span { font-size:11px; font-weight:normal; opacity:.7; }
+.theme-picker { display:flex; gap:6px; flex-wrap:wrap; }
+.theme-option { display:flex; align-items:center; gap:8px; background:#173f40; color:#c8d8d1; border:1px solid #63827b; box-shadow:none; padding:8px 13px; }
+.theme-option[aria-pressed=true] { background:#e0e9da; color:#173f40; border-color:#e0e9da; }
+.theme-option i { width:12px; height:12px; background:#5caaa1; border:1px solid #ffffff70; }
+.option-win98 i { background:linear-gradient(#000080 35%,#c0c0c0 35%); }
+.option-future i { background:#00e5ff; }
+.option-rainbow i { background:linear-gradient(135deg,#ff5283,#ffdf65,#55e5ac,#49aaff,#cc6aff); }
+.window-body { padding:16px 20px 12px; }
+.disk-heading { margin-bottom:12px; }
+.monitor canvas { height:max(340px,calc(100dvh - 610px)); }
+.legend { padding:10px 0 12px; }
+.controls { margin-top:13px; }
+.preferences { margin-top:12px; padding-top:10px; }
+.monitor[hidden], .legend[hidden] { display:none; }
+.relax { display:block; }
+.relax .appearance-bar { display:flex; }
+.relax .monitor canvas, .desktop.relax:fullscreen .monitor canvas { height:calc(100dvh - 245px); min-height:280px; }
+.desktop:fullscreen { padding:12px 16px; }
+.desktop:fullscreen .monitor canvas { height:max(340px,calc(100dvh - 610px)); }
+.theme-option:focus-visible { outline:3px solid #ffdf65; outline-offset:3px; }
+
+/* Windows 98: flat desktop, raised gray chrome, white disk surface. */
+.theme-win98 { background:#008080; color:#000; font-family:Tahoma,'Microsoft Sans Serif',Arial,sans-serif; }
+.theme-win98 .window { background:#c0c0c0; border:1px solid #000; padding:3px; box-shadow:inset 1px 1px #fff,inset -1px -1px #808080; }
+.theme-win98 .titlebar { background:linear-gradient(90deg,#000080,#1084d0); color:#fff; min-height:27px; padding:3px 4px; }
+.theme-win98 .titlebar button { width:21px; height:20px; font-size:16px; }
+.theme-win98 button:not(.theme-option) { background:#c0c0c0; color:#000; border:1px solid #000; border-radius:0; box-shadow:inset 1px 1px #fff,inset -1px -1px #808080; }
+.theme-win98 button:not(.theme-option):active { box-shadow:inset 1px 1px #808080; }
+.theme-win98 .menubar { border-color:#808080; padding:2px 5px; }
+.theme-win98 .menubar button { border:0; box-shadow:none; }
+.theme-win98 .menubar b { background:#c0c0c0; }
+.theme-win98 .disk-heading, .theme-win98 .monitor-label, .theme-win98 .monitor-foot { display:none; }
+.theme-win98 .window-body { padding:5px; display:grid; grid-template-columns:minmax(0,1fr) 360px; column-gap:22px; }
+.theme-win98 .monitor { grid-column:1/-1; background:#fff; padding:2px; border-color:#808080 #fff #fff #808080; }
+.theme-win98 .monitor canvas { height:max(340px,calc(100dvh - 440px)); }
+.theme-win98 .legend { grid-column:1/-1; color:#000; }
+.theme-win98 .progress-heading { grid-column:1; grid-row:3; align-self:end; padding:8px 8px 0; }
+.theme-win98 .progress-heading strong { color:#000; font:16px Tahoma,sans-serif; }
+.theme-win98 .progress-track { grid-column:1; grid-row:4; margin:8px; background:#c0c0c0; border-color:#808080 #fff #fff #808080; }
+.theme-win98 .progress-track>div { background:repeating-linear-gradient(90deg,#000080 0,#000080 10px,transparent 10px,transparent 13px); }
+.theme-win98 .progress-meta { grid-column:1; grid-row:5; color:#000; margin:0 8px; }
+.classic-actions { grid-column:2; grid-row:3/6; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:8px 3px; }
+.theme-win98 .controls, .theme-win98 .preferences, .theme-win98 .notice { grid-column:1/-1; }
+.theme-win98 .transport { display:none; }
+.theme-win98 .controls { justify-content:flex-end; }
+.theme-win98 .preferences { border-color:#808080; }
+.theme-win98 .statusbar>span { border-color:#808080 #fff #fff #808080; }
+.theme-win98 input { accent-color:#000080; }
+.theme-win98 .status-dot { background:#000080; }
+.theme-win98.relax .window-body { display:block; }
+.theme-win98.relax .classic-actions { display:none; }
+
+/* Futuristic: an edge-lit data terminal, with sharp cells and minimal chrome. */
+.theme-future { --accent:#00e5ff; background:radial-gradient(ellipse at top right,#122c50,transparent 65%),#030712; color:#c6e5f5; font-family:'Consolas','Courier New',monospace; }
+.theme-future .window { background:#091321; border:1px solid #275270; padding:0; box-shadow:0 0 30px #00aaff12,inset 0 0 40px #006b9b09; }
+.theme-future .titlebar { background:linear-gradient(90deg,#0b2740,#10142b); border-bottom:1px solid #176183; color:#76f3ff; letter-spacing:2px; padding:9px 12px; }
+.theme-future .menubar { border-color:#213a50; }
+.theme-future .menubar b { background:#142f46; }
+.theme-future button:not(.theme-option) { color:#9eeaff; background:#10253b; border:1px solid #306078; box-shadow:none; border-radius:0; }
+.theme-future button:not(.theme-option):hover:not(:disabled) { background:#19435a; }
+.theme-future .primary { background:#00d9ed!important; color:#061422!important; }
+.theme-future .drive-icon, .theme-future .progress-heading strong { color:#58efff; }
+.theme-future h1 { text-transform:uppercase; font-size:17px; letter-spacing:2px; }
+.theme-future p, .theme-future .legend, .theme-future .progress-meta { color:#9bb7c9; }
+.theme-future .monitor { background:#030a16; border:1px solid #287598; box-shadow:inset 0 0 20px #0072a020; }
+.theme-future .monitor-label, .theme-future .monitor-foot { color:#66c6e4; }
+.theme-future .progress-track { background:#101d32; border:1px solid #294e66; height:17px; padding:2px; }
+.theme-future .progress-track>div { background:linear-gradient(90deg,#4164ff,#00e5ff); box-shadow:0 0 12px #00cfff50; }
+.theme-future .preferences, .theme-future .statusbar>span { border-color:#243c51; }
+.theme-future .activity.active i { background:#00e5ff; box-shadow:0 0 8px #00e5ff; }
+.theme-future input { accent-color:#00dced; }
+.theme-future .theme-option { background:#0c1c30; border-color:#306078; color:#bddfea; }
+.theme-future .theme-option[aria-pressed=true] { background:#00e5ff; color:#051725; }
+
+/* Rainbow: bright spectrum cells against a dark plum surface. */
+.theme-rainbow { background:radial-gradient(ellipse at 0 0,#491e66,transparent 55%),radial-gradient(ellipse at 100% 100%,#15345f,transparent 65%),#160f2b; color:#f4eafd; }
+.theme-rainbow .window { background:#241a36; border:1px solid #9f73c3; border-radius:12px; padding:4px; box-shadow:0 12px 50px #07051066; overflow:hidden; }
+.theme-rainbow .titlebar { color:#fff; border-radius:8px 8px 0 0; background:linear-gradient(100deg,#8d286b,#713bc2,#245ba4,#20695a); }
+.theme-rainbow .menubar, .theme-rainbow .preferences, .theme-rainbow .statusbar>span { border-color:#58436c; }
+.theme-rainbow .menubar b { background:#483253; }
+.theme-rainbow button:not(.theme-option) { color:#f8eafd; background:#433052; border:1px solid #9774a6; border-radius:5px; box-shadow:none; }
+.theme-rainbow button:not(.theme-option):hover:not(:disabled) { background:#62406f; }
+.theme-rainbow .primary { background:#ebadf4!important; color:#351341!important; }
+.theme-rainbow .drive-icon, .theme-rainbow .progress-heading strong { color:#ffc8ee; }
+.theme-rainbow p, .theme-rainbow .legend, .theme-rainbow .progress-meta { color:#d0b9de; }
+.theme-rainbow .monitor { background:#140e2a; border:1px solid #816395; border-radius:6px; }
+.theme-rainbow .monitor-label, .theme-rainbow .monitor-foot { color:#d6b8eb; }
+.theme-rainbow .progress-track { background:#3c2b4c; border:1px solid #71557e; border-radius:10px; overflow:hidden; }
+.theme-rainbow .progress-track>div { border-radius:6px; background:linear-gradient(90deg,#ff6086,#ffb65d,#ffe873,#72ecad,#64c6ff,#b495ff,#ff9de7); }
+.theme-rainbow input { accent-color:#eba3ed; }
+.theme-rainbow .activity.active i { background:#e4a4ff; box-shadow:0 0 8px #e4a4ff; }
+.theme-rainbow .theme-option { background:#30203f; color:#f6dafa; border-color:#846096; }
+.theme-rainbow .theme-option[aria-pressed=true] { background:#efc5ff; color:#371a44; }
+@media(max-width:750px) {
+  .desktop { padding:10px 8px; }
+  .appearance-bar { align-items:flex-start; flex-direction:column; gap:9px; }
+  .appearance-label span { display:none; }
+  .theme-picker { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:100%; gap:4px; }
+  .theme-option { padding:9px 5px; justify-content:center; font-size:12px; gap:5px; }
+  .theme-option i { width:9px; height:9px; flex-shrink:0; }
+  .monitor canvas, .theme-win98 .monitor canvas { height:max(340px,45dvh); }
+  .theme-win98 .window-body { display:flex; flex-direction:column; }
+  .classic-actions { width:100%; }
+  .theme-win98 .controls { align-items:stretch; }
+  .theme-future .titlebar { letter-spacing:0; font-size:12px; }
+}
+
+@media(max-width:750px) { .theme-win98 .progress-heading { align-self:stretch; gap:12px; } }
